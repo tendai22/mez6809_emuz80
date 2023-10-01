@@ -1,0 +1,463 @@
+[p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 18F47Q43 ]
+[d frameptr 1249 ]
+"16 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\bootload.c
+[v _getchr getchr `(i  1 e 2 0 ]
+"35
+[v _ungetchr ungetchr `(v  1 e 1 0 ]
+"48
+[v _to_hex to_hex `(i  1 e 2 0 ]
+"59
+[v _clear_all clear_all `(v  1 e 1 0 ]
+"71
+[v _manualboot manualboot `(v  1 e 1 0 ]
+"7 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+"4 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\fleq.c
+[v ___fleq __fleq `(b  1 e 0 0 ]
+"62 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\float.c
+[v ___ftpack __ftpack `(f  1 e 4 0 ]
+"86 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 4 0 ]
+"54 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 4 0 ]
+"62 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 4 0 ]
+"19 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\ftsub.c
+[v ___ftsub __ftsub `(f  1 e 4 0 ]
+"7 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+"10 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"245
+[v ___flsub __flsub `(d  1 e 4 0 ]
+"11 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\sprcdiv.c
+[v ___fldiv __fldiv `(d  1 e 4 0 ]
+"8 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\sprcmul.c
+[v ___flmul __flmul `(d  1 e 4 0 ]
+"5 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\strlen.c
+[v _strlen strlen `(ui  1 e 2 0 ]
+"15 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+"15 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"91 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\Umul64.c
+[v ___omul __omul `(uo  1 e 8 0 ]
+"100 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\main.c
+[v _putchx putchx `(v  1 e 1 0 ]
+"106
+[v _getchx getchx `(i  1 e 2 0 ]
+"131
+[v _RES_off RES_off `(v  1 e 1 0 ]
+"136
+[v _get_databus get_databus `(uc  1 e 1 0 ]
+"141
+[v _get_addr get_addr `(us  1 e 2 0 ]
+"146
+[v _get_rwflag get_rwflag `(i  1 e 2 0 ]
+"151
+[v _put_databus put_databus `(v  1 e 1 0 ]
+"158
+[v _peek_ram peek_ram `(uc  1 e 1 0 ]
+"163
+[v _poke_ram poke_ram `(v  1 e 1 0 ]
+"169
+[v _init_boot init_boot `(v  1 e 1 0 ]
+"174
+[v _end_boot end_boot `(v  1 e 1 0 ]
+"192
+[v _toggle_Egate toggle_Egate `(v  1 s 1 toggle_Egate ]
+"205
+[v _main main `(v  1 e 1 0 ]
+"161 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\xprintf.c
+[v _xputc xputc `(v  1 e 1 0 ]
+"169
+[v _xfputc xfputc `(v  1 e 1 0 ]
+"198
+[v _xfputs xfputs `(v  1 e 1 0 ]
+"235
+[v _xvfprintf xvfprintf `(v  1 e 1 0 ]
+"375
+[v _xprintf xprintf `(v  1 e 1 0 ]
+"486
+[v _xgets xgets `(i  1 e 2 0 ]
+"14 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\bootload.c
+[v _uc uc `i  1 s 2 uc ]
+"5448 C:/Users/tenda/.mchp_packs/Microchip/PIC18F-Q_DFP/1.16.368/xc8\pic\include\proc\pic18f47q43.h
+[v _OSCFRQ OSCFRQ `VEuc  1 e 1 @177 ]
+"6401
+[v _CLCSELECT CLCSELECT `VEuc  1 e 1 @213 ]
+"6441
+[v _CLCnCON CLCnCON `VEuc  1 e 1 @214 ]
+"6511
+[v _CLCnPOL CLCnPOL `VEuc  1 e 1 @215 ]
+"6556
+[v _CLCnSEL0 CLCnSEL0 `VEuc  1 e 1 @216 ]
+"6626
+[v _CLCnSEL1 CLCnSEL1 `VEuc  1 e 1 @217 ]
+"6696
+[v _CLCnSEL2 CLCnSEL2 `VEuc  1 e 1 @218 ]
+"6766
+[v _CLCnSEL3 CLCnSEL3 `VEuc  1 e 1 @219 ]
+"6836
+[v _CLCnGLS0 CLCnGLS0 `VEuc  1 e 1 @220 ]
+"6898
+[v _CLCnGLS1 CLCnGLS1 `VEuc  1 e 1 @221 ]
+"6960
+[v _CLCnGLS2 CLCnGLS2 `VEuc  1 e 1 @222 ]
+"7022
+[v _CLCnGLS3 CLCnGLS3 `VEuc  1 e 1 @223 ]
+"8812
+[v _RA3PPS RA3PPS `VEuc  1 e 1 @516 ]
+"8980
+[v _RA6PPS RA6PPS `VEuc  1 e 1 @519 ]
+"13208
+[v _CLCIN0PPS CLCIN0PPS `VEuc  1 e 1 @609 ]
+"13274
+[v _CLCIN1PPS CLCIN1PPS `VEuc  1 e 1 @610 ]
+"13340
+[v _CLCIN2PPS CLCIN2PPS `VEuc  1 e 1 @611 ]
+"13406
+[v _CLCIN3PPS CLCIN3PPS `VEuc  1 e 1 @612 ]
+"13604
+[v _CLCIN6PPS CLCIN6PPS `VEuc  1 e 1 @615 ]
+"13670
+[v _CLCIN7PPS CLCIN7PPS `VEuc  1 e 1 @616 ]
+"14606
+[v _U3RXPPS U3RXPPS `VEuc  1 e 1 @630 ]
+"18605
+[v _U3RXB U3RXB `VEuc  1 e 1 @711 ]
+"18643
+[v _U3TXB U3TXB `VEuc  1 e 1 @713 ]
+"18762
+[v _U3CON0 U3CON0 `VEuc  1 e 1 @721 ]
+"19090
+[v _U3BRG U3BRG `VEus  1 e 2 @724 ]
+"39164
+[v _ANSELB ANSELB `VEuc  1 e 1 @1032 ]
+"39226
+[v _WPUB WPUB `VEuc  1 e 1 @1033 ]
+"39660
+[v _ANSELC ANSELC `VEuc  1 e 1 @1040 ]
+"39722
+[v _WPUC WPUC `VEuc  1 e 1 @1041 ]
+"40156
+[v _ANSELD ANSELD `VEuc  1 e 1 @1048 ]
+"40218
+[v _WPUD WPUD `VEuc  1 e 1 @1049 ]
+"41047
+"41047
+[v _NCO1INC NCO1INC `VEum  1 e 3 @1091 ]
+"41459
+[v _NCO1CLK NCO1CLK `VEuc  1 e 1 @1095 ]
+"47328
+[v _LATC LATC `VEuc  1 e 1 @1216 ]
+"47546
+[v _TRISB TRISB `VEuc  1 e 1 @1223 ]
+"47608
+[v _TRISC TRISC `VEuc  1 e 1 @1224 ]
+"47670
+[v _TRISD TRISD `VEuc  1 e 1 @1225 ]
+"47826
+[v _PORTB PORTB `VEuc  1 e 1 @1231 ]
+"47888
+[v _PORTC PORTC `VEuc  1 e 1 @1232 ]
+"47950
+[v _PORTD PORTD `VEuc  1 e 1 @1233 ]
+"50847
+[v _ANSELA0 ANSELA0 `VEb  1 e 0 @8192 ]
+"50850
+[v _ANSELA1 ANSELA1 `VEb  1 e 0 @8193 ]
+"50853
+[v _ANSELA2 ANSELA2 `VEb  1 e 0 @8194 ]
+"50856
+[v _ANSELA3 ANSELA3 `VEb  1 e 0 @8195 ]
+"50859
+[v _ANSELA4 ANSELA4 `VEb  1 e 0 @8196 ]
+"50865
+[v _ANSELA6 ANSELA6 `VEb  1 e 0 @8198 ]
+"50868
+[v _ANSELA7 ANSELA7 `VEb  1 e 0 @8199 ]
+"50946
+[v _ANSELE1 ANSELE1 `VEb  1 e 0 @8449 ]
+"50949
+[v _ANSELE2 ANSELE2 `VEb  1 e 0 @8450 ]
+"53967
+[v _LATA3 LATA3 `VEb  1 e 0 @9715 ]
+"53970
+[v _LATA4 LATA4 `VEb  1 e 0 @9716 ]
+"53976
+[v _LATA6 LATA6 `VEb  1 e 0 @9718 ]
+"54054
+[v _LATE0 LATE0 `VEb  1 e 0 @9744 ]
+"54057
+[v _LATE1 LATE1 `VEb  1 e 0 @9745 ]
+"54060
+[v _LATE2 LATE2 `VEb  1 e 0 @9746 ]
+"54411
+[v _NCO1EN NCO1EN `VEb  1 e 0 @8759 ]
+"54486
+[v _NCO1OUT NCO1OUT `VEb  1 e 0 @8757 ]
+"54489
+[v _NCO1PFM NCO1PFM `VEb  1 e 0 @8752 ]
+"55563
+[v _RA0 RA0 `VEb  1 e 0 @9840 ]
+"55587
+[v _RA1 RA1 `VEb  1 e 0 @9841 ]
+"56268
+[v _RD5 RD5 `VEb  1 e 0 @9869 ]
+"59079
+[v _TRISA0 TRISA0 `VEb  1 e 0 @9776 ]
+"59082
+[v _TRISA1 TRISA1 `VEb  1 e 0 @9777 ]
+"59085
+[v _TRISA2 TRISA2 `VEb  1 e 0 @9778 ]
+"59088
+[v _TRISA3 TRISA3 `VEb  1 e 0 @9779 ]
+"59091
+[v _TRISA4 TRISA4 `VEb  1 e 0 @9780 ]
+"59097
+[v _TRISA6 TRISA6 `VEb  1 e 0 @9782 ]
+"59100
+[v _TRISA7 TRISA7 `VEb  1 e 0 @9783 ]
+"59178
+[v _TRISE1 TRISE1 `VEb  1 e 0 @9809 ]
+"59181
+[v _TRISE2 TRISE2 `VEb  1 e 0 @9810 ]
+"59748
+[v _U3ON U3ON `VEb  1 e 0 @5783 ]
+"59763
+[v _U3RXBE U3RXBE `VEb  1 e 0 @5809 ]
+"59778
+[v _U3RXEN U3RXEN `VEb  1 e 0 @5772 ]
+"59832
+[v _U3TXBE U3TXBE `VEb  1 e 0 @5813 ]
+"59844
+[v _U3TXEN U3TXEN `VEb  1 e 0 @5773 ]
+"60438
+[v _WPUA0 WPUA0 `VEb  1 e 0 @8200 ]
+"89 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\main.c
+[v _break_address break_address `us  1 e 2 0 ]
+"90
+[v _ss_flag ss_flag `i  1 e 2 0 ]
+"156
+[v _ram ram `[4096]uc  1 s 4096 ram ]
+"28 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\xprintf.c
+[v _xfunc_output xfunc_output `*.38(v  1 e 3 0 ]
+"29
+[v _strptr strptr `*.2uc  1 s 2 strptr ]
+"30
+[v _rest_num rest_num `i  1 s 2 rest_num ]
+"479
+[v _xfunc_input xfunc_input `*.38(i  1 e 3 0 ]
+"205 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"250
+[v main@i_169 i `i  1 a 2 38 ]
+"239
+[v main@i i `i  1 a 2 36 ]
+"209
+[v main@addr addr `ul  1 a 4 32 ]
+"653
+} 0
+"192
+[v _toggle_Egate toggle_Egate `(v  1 s 1 toggle_Egate ]
+{
+"199
+} 0
+"71 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\bootload.c
+[v _manualboot manualboot `(v  1 e 1 0 ]
+{
+"84
+[v manualboot@start start `us  1 a 2 25 ]
+[v manualboot@end end `us  1 a 2 10 ]
+"73
+[v manualboot@c c `i  1 a 2 29 ]
+"74
+[v manualboot@addr addr `us  1 a 2 27 ]
+"73
+[v manualboot@n n `i  1 a 2 23 ]
+[v manualboot@d d `i  1 a 2 21 ]
+"74
+[v manualboot@min min `us  1 a 2 19 ]
+[v manualboot@max max `us  1 a 2 17 ]
+"75
+[v manualboot@addr_flag addr_flag `i  1 a 2 15 ]
+"73
+[v manualboot@cc cc `i  1 a 2 13 ]
+"153
+} 0
+"35
+[v _ungetchr ungetchr `(v  1 e 1 0 ]
+{
+[v ungetchr@c c `i  1 p 2 0 ]
+"38
+} 0
+"48
+[v _to_hex to_hex `(i  1 e 2 0 ]
+{
+[v to_hex@c c `uc  1 a 1 wreg ]
+[v to_hex@c c `uc  1 a 1 wreg ]
+"51
+[v to_hex@c c `uc  1 a 1 2 ]
+"57
+} 0
+"158 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\main.c
+[v _peek_ram peek_ram `(uc  1 e 1 0 ]
+{
+[v peek_ram@addr addr `us  1 p 2 0 ]
+"161
+} 0
+"16 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\bootload.c
+[v _getchr getchr `(i  1 e 2 0 ]
+{
+"19
+[v getchr@c c `i  1 a 2 6 ]
+"18
+[v getchr@count count `i  1 s 2 count ]
+"33
+} 0
+"106 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\main.c
+[v _getchx getchx `(i  1 e 2 0 ]
+{
+"109
+} 0
+"59 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\bootload.c
+[v _clear_all clear_all `(v  1 e 1 0 ]
+{
+"61
+[v clear_all@p p `us  1 a 2 6 ]
+"62
+[v clear_all@i i `i  1 a 2 4 ]
+"69
+} 0
+"375 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\xprintf.c
+[v _xprintf xprintf `(v  1 e 1 0 ]
+{
+"380
+[v xprintf@arp arp `[1]*.39v  1 a 2 0 ]
+"376
+[v xprintf@fmt fmt `*.32Cuc  1 p 2 85 ]
+"386
+} 0
+"235
+[v _xvfprintf xvfprintf `(v  1 e 1 0 ]
+{
+"245
+[v xvfprintf@str str `[32]uc  1 a 32 24 ]
+"250
+[v xvfprintf@v v `l  1 a 4 68 ]
+"251
+[v xvfprintf@uv uv `ul  1 a 4 62 ]
+"242
+[v xvfprintf@i i `i  1 a 2 82 ]
+[v xvfprintf@j j `i  1 a 2 80 ]
+"244
+[v xvfprintf@prec prec `i  1 a 2 78 ]
+"241
+[v xvfprintf@w w `ui  1 a 2 76 ]
+[v xvfprintf@f f `ui  1 a 2 74 ]
+"245
+[v xvfprintf@p p `*.34uc  1 a 2 72 ]
+"243
+[v xvfprintf@n n `i  1 a 2 66 ]
+"241
+[v xvfprintf@r r `ui  1 a 2 60 ]
+"245
+[v xvfprintf@c c `uc  1 a 1 84 ]
+[v xvfprintf@pad pad `uc  1 a 1 59 ]
+[v xvfprintf@d d `uc  1 a 1 58 ]
+"236
+[v xvfprintf@func func `*.38(v  1 p 3 13 ]
+"237
+[v xvfprintf@fmt fmt `*.32Cuc  1 p 2 16 ]
+"238
+[v xvfprintf@arp arp `*.39*.39v  1 p 2 18 ]
+"372
+} 0
+"169
+[v _xfputc xfputc `(v  1 e 1 0 ]
+{
+"170
+[v xfputc@func func `*.38(v  1 p 3 2 ]
+"171
+[v xfputc@chr chr `i  1 p 2 5 ]
+"182
+} 0
+"100 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\main.c
+[v _putchx putchx `(v  1 e 1 0 ]
+{
+[v putchx@c c `i  1 p 2 0 ]
+"103
+} 0
+"5 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\strlen.c
+[v _strlen strlen `(ui  1 e 2 0 ]
+{
+"7
+[v strlen@a a `*.34Cuc  1 a 2 2 ]
+"5
+[v strlen@s s `*.34Cuc  1 p 2 0 ]
+"12
+} 0
+"15 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\Umul16.c
+[v ___wmul __wmul `(ui  1 e 2 0 ]
+{
+"17
+[v ___wmul@product product `ui  1 a 2 4 ]
+"15
+[v ___wmul@multiplier multiplier `ui  1 p 2 0 ]
+[v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
+"53
+} 0
+"7 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+{
+"10
+[v ___llmod@counter counter `uc  1 a 1 8 ]
+"7
+[v ___llmod@dividend dividend `ul  1 p 4 0 ]
+[v ___llmod@divisor divisor `ul  1 p 4 4 ]
+"25
+} 0
+"7 C:\Program Files\Microchip\xc8\v2.40\pic\sources\c99\common\__lldiv.c
+[v ___lldiv __lldiv `(ul  1 e 4 0 ]
+{
+"10
+[v ___lldiv@quotient quotient `ul  1 a 4 8 ]
+"11
+[v ___lldiv@counter counter `uc  1 a 1 12 ]
+"7
+[v ___lldiv@dividend dividend `ul  1 p 4 0 ]
+[v ___lldiv@divisor divisor `ul  1 p 4 4 ]
+"30
+} 0
+"163 D:\tendai22plus\MPLABXProjects\mez6809_emuz80\mez6809_emuz80.X\main.c
+[v _poke_ram poke_ram `(v  1 e 1 0 ]
+{
+[v poke_ram@addr addr `us  1 p 2 0 ]
+[v poke_ram@c c `uc  1 p 1 2 ]
+"167
+} 0
+"169
+[v _init_boot init_boot `(v  1 e 1 0 ]
+{
+"172
+} 0
+"141
+[v _get_addr get_addr `(us  1 e 2 0 ]
+{
+"144
+} 0
+"174
+[v _end_boot end_boot `(v  1 e 1 0 ]
+{
+"177
+} 0
+"131
+[v _RES_off RES_off `(v  1 e 1 0 ]
+{
+"134
+} 0
