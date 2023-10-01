@@ -198,9 +198,6 @@ static void toggle_Egate(void)
     CLCnCON |= 0x80;
 }
 
-
-
-
 // main routine
 void main(void) {
     int monitor_mode = 0;
@@ -231,6 +228,128 @@ void main(void) {
     
     
     // RA3: CLK out, hand clock
+    // For 6809E, no EXTAL pin, so E/Q clocks should be provided early
+#undef  MC6809E
+#define MC6809E
+#if defined(MC6809E)
+    // reconfigurate CLC devices
+    // CLC pin assign
+    // 0, 1, 4, 5: Port A, C
+    // 2, 3, 6, 7: Port B, D
+    CLCIN0PPS = 0x00;   // RA0 <- /IORQ <- R/W
+    CLCIN1PPS = 0x01;   // RA1 <- /MREQ <- E
+    CLCIN2PPS = 0x1C;   // RD4 <- A12
+    CLCIN3PPS = 0x1D;   // RD5 <- A13
+    CLCIN6PPS = 0x1E;   // RD6 <- A14
+    CLCIN7PPS = 0x1F;   // RD7 <- A15
+    
+    // ====== CLC2 ... 2div presclar/gate
+    CLCSELECT = 1;
+    CLCnCON = 0;        // CLC2 temporary disabled
+    CLCnPOL = 0;        // not inverted output/g1g2g3g4
+    
+    CLCnSEL0 = 0x34;    // g1 <- CLC2
+    CLCnSEL1 = 127;// 0x02;    // g2 <- CLCIN1 <- RA1(E)
+    CLCnSEL2 = 0x2a;    // g3 <- NCO1
+    CLCnSEL3 = 127;     // g4 <- no connect
+    
+    CLCnGLS0 = 0x20;    // D-FF CLK <- D3T
+    CLCnGLS1 = 0x01;    // D1N (temporary) 0x05;    // D-FF D   <- D1N && D2N
+    CLCnGLS2 = 0x80;    // 0 for D-FF RESET
+    CLCnGLS3 = 0x80;    // 0 for D-FF SET
+
+    CLCnPOL = 0x00;     // non inverted the CLC3 output
+    CLCnCON = 0x84;     // Select D-FF (no interrupt)
+#define TEST_CLC
+#if defined(TEST_CLC)
+    // E(34)-MREQ(19)-RA1
+    ANSELA1 = 0;
+    LATA1 = 0;
+    TRISA1 = 0;
+    // Q(35)-RFSH(28)-RA2
+    ANSELA2 = 0;
+    LATA2 = 0;
+    TRISA2 = 0;
+    // RD-RA5 to EXTAL 2div output for debug
+    ANSELA5 = 0;
+    LATA5 = 0;
+    TRISA5 = 0;         // output
+    
+    LATA5 ^= 1;
+    LATA5 ^= 1;
+    LATA5 ^= 1;
+    LATA5 ^= 1;
+#endif
+    // CLC4 ... 2bit sync counter bit 0
+    CLCSELECT = 3;
+    CLCnCON = 0;        // disable CLC3
+    
+    CLCnSEL0 = 0x36;    // g1 <- CLC4
+    CLCnSEL1 = 127;     // 0x02;    // g2 <- CLCIN1 <- RA1(E)
+    CLCnSEL2 = 0x2a;    // g3 <- CLC2
+    CLCnSEL3 = 127;     // g4 <- no connect
+    
+    CLCnGLS0 = 0x20;    // D-FF CLK <- D3T
+    CLCnGLS1 = 0x01;    // D-FF D   <- D1N (or if gating is needed, add D2T/D2N
+    CLCnGLS2 = 0x80;    // 0 for D-FF RESET
+    CLCnGLS3 = 0x80;    // 0 for D-FF SET
+
+    CLCnPOL = 0x00;     // non inverted the CLC3 output
+    CLCnCON = 0x84;     // Select D-FF (no interrupt)
+
+    // CLC6 ... 2bit sync couter bit 1
+    CLCSELECT = 5;
+    CLCnCON = 0;        // disable CLC4
+    
+    CLCnSEL0 = 0x37;    // g1 <- CLC5
+    CLCnSEL1 = 127;     // NC (or gating input) 
+    CLCnSEL2 = 0x2a;    // g3 <- CLC2
+    CLCnSEL3 = 127;     // NC 
+    
+    CLCnGLS0 = 0x20;    // D-FF CLK <- D3T
+    CLCnGLS1 = 0x01;    // D-FF D   <- D1N
+    CLCnGLS2 = 0x80;    // 0 for D-FF RESET
+    CLCnGLS3 = 0x80;    // 0 for D-FF SET
+
+    CLCnPOL = 0x00;     // non inverted output
+    CLCnCON = 0x84;     // Select D-FF (no interrupt)
+
+    // CLC5 ... XOR gate for 2bit sync couunter
+    CLCSELECT = 4;
+    CLCnCON = 0;        // disable CLC2
+    
+    CLCnSEL0 = 0x36;    // g1 <- CLC4
+    CLCnSEL1 = 127;// 0x02;    // g2 <- CLCIN1 <- RA1(E)
+    CLCnSEL2 = 0x38;    // g3 <- CLC6
+    CLCnSEL3 = 127;     // g4 <- no connect
+    
+    CLCnGLS0 = 0x02;    // gate1 <- D1T
+    CLCnGLS1 = 0x80;    // gate2 <- 0
+    CLCnGLS2 = 0x20;    // gate3 <- D3T
+    CLCnGLS3 = 0x80;    // gate4 <- 0
+
+    CLCnPOL = 0x00;     // non inverted the CLC3 output
+    CLCnCON = 0x81;     // OR-XOR 
+
+    // Z80 clock(RA3) by NCO FDC mode
+    NCO1INC = MEZ6809_CLK * 2 / 61;
+    NCO1INC = 0x04000;
+    NCO1CLK = 0x00; // Clock source Fosc
+    NCO1PFM = 0;  // FDC mode
+    NCO1OUT = 1;  // NCO output enable
+    NCO1EN = 1;   // NCO enable
+
+//    RE0PPS = 0x02;      // RE0 <- CLC2OUT (EXTAL)
+    // CLC output selections
+    ANSELD0 = 0;
+    TRISD0 = 0;
+    RD0PPS = 0x04;  // RC0 <- CLC4OUT
+    RA1PPS = 0x05;  // 0x05: CLC5OUT
+    RA2PPS = 0x06;  // 0x06: CLC6OUT
+    RA5PPS = 0x02;  // 02: CLC2OUT // 0x3f:NCO1
+
+    while(1);
+#else //!MC6809E
     ANSELA3 = 0;
     LATA3 = 0;
     TRISA3 = 0; // set as output
@@ -239,6 +358,7 @@ void main(void) {
     for (int i = 0; i < 38; ++i) {
         LATA3 ^= 1; // toggle it
     }
+#endif
 
     // CPU test
     // DB out 0x12
@@ -246,13 +366,6 @@ void main(void) {
     TRISC = 0;      // output
     LATC = 0x12;    // NOP instruction
     
-    LATE1 = 1;
-    for (int i = 0; i < 256; ++i) {
-        LATA3 ^= 1; // toggle it
-    }
-    
-
-
     __delay_ms(5);      // 5ms wait, expecting 
     TOGGLE; TOGGLE;
 
@@ -298,37 +411,6 @@ void main(void) {
    
     }
     TOGGLE; TOGGLE;
-    
-    // RA0: R/W input
-    ANSELA0 = 0;
-    TRISA0 = 1;
-    
-    // RA4: NMI output pin
-    ANSELA4 = 0;
-    LATA4 = 1;
-    TRISA4 = 0; // set as output
-    
-    // RA2: Q input pin
-    ANSELA2 = 0;
-    TRISA2 = 1; // set as input
-
-    // Z80 clock(RA3) by NCO FDC mode
-    //RA3PPS = 0x3f; // RA3 assign NCO1
-    ANSELA3 = 0; // Disable analog function
-    TRISA3 = 0; // NCO output pin
-    NCO1INC = MEZ6809_CLK * 2 / 61;
-    NCO1INC = 0x04000;
-    NCO1CLK = 0x00; // Clock source Fosc
-    NCO1PFM = 0;  // FDC mode
-    NCO1OUT = 1;  // NCO output enable
-    NCO1EN = 1;   // NCO enable
-#if defined(EXTERNAL_CLOCK)
-    // If we use an external clock generator, we need to
-    // make RA3 pin Hi-Z.
-    RA3PPS = 0;     // internal clock disable
-    TRISA3 = 1;
-#endif
-
     // test LED blink
 #if 0
     while (1) {
@@ -377,102 +459,6 @@ void main(void) {
         }
     }
 #endif
-    // reconfigurate CLC devices
-    // CLC pin assign
-    // 0, 1, 4, 5: Port A, C
-    // 2, 3, 6, 7: Port B, D
-    CLCIN0PPS = 0x00;   // RA0 <- /IORQ <- R/W
-    CLCIN1PPS = 0x01;   // RA1 <- /MREQ <- E
-    CLCIN2PPS = 0x1C;   // RD4 <- A12
-    CLCIN3PPS = 0x1D;   // RD5 <- A13
-    CLCIN6PPS = 0x1E;   // RD6 <- A14
-    CLCIN7PPS = 0x1F;   // RD7 <- A15
-    
-    // ====== CLC1 Address decoder
-    CLCSELECT = 0;      // CLC1 select
-    CLCnCON &= ~0x80;
-    
-    CLCnSEL0 = 2;       // CLCIN2 <- RD4 <- A12
-    CLCnSEL1 = 3;       // CLCIN3 <- RD5 <- A13
-    CLCnSEL2 = 6;       // CLCIN6 <- RD6 <- A14
-    CLCnSEL3 = 7;       // CLCIN7 <- RD7 <- A15
-    
-    CLCnGLS0 = 0x02;    // Gate1 <- D1T
-    CLCnGLS1 = 0x08;    // Gate2 <- D2T
-    CLCnGLS2 = 0x20;    // Gate3 <- D3T
-    CLCnGLS3 = 0x80;    // Gate4 <- D4T
-    
-    CLCnPOL = 0x00;     // non inverted
-    CLCnCON = 0x82;     // 4 input AND, ENABLE it
-    
-    // ====== CLC3 AND-OR
-    CLCSELECT = 2;      // CLC3 select
-    CLCnCON &= ~0x80;   // DISABLE it
-    
-    CLCnSEL0 = 0x33;    // CLC1 ... address decoder
-    CLCnSEL1 = 1;       // CLCIN1 <- RA1 <- E or /E
-    CLCnSEL2 = 127;     // NC
-    CLCnSEL3 = 0x2a;    // NCO1CLK
-    
-//    CLCnGLS0 = 0x02;    // Gate1 <- D1T <- CLC1
-//    CLCnGLS0 = 0x40;    // "1" (NC inverted)
-    CLCnGLS0 = 0x20;    // "0" (NC inverted)
-    CLCnGLS1 = 0x04;    // Gate2 <- D2T <- E
-//    CLCnGLS1 = 0x04;    // Gate2 <- D2N <- /E
-    CLCnGLS2 = 0x20;    // Gate3 <- D3T
-//    CLCnGLS2 = 0x10;    // "1" (NC inverted) (If SELn is NC, DnT is 0, DnN is 1)
-//    CLCnGLS2 = 0x04;    // Gate2 <- D2T <- E
-//    CLCnGLS3 = 0x80;    // Gate4 <- D4T
-    CLCnGLS3 = 0x80;    // Gate4 <- D4T
-    
-    CLCnPOL = 0x00;     // non inverted the CLC2 output
-    CLCnCON = 0x80;     // AND-OR (no interrupt)
-    
-    // ====== CLC2  1 input D-FF
-    CLCSELECT = 1;      // choose CLC2
-    
-    CLCnSEL0 = 0x35;    // D-FF CLK <- CLC3OUT
-    CLCnSEL1 = 0x34;    // D-FF D <- /CLC2OUT
-    CLCnSEL2 = 127;     // D-FF SET NC
-    CLCnSEL3 = 127;     // D-FF RESET NC
-    
-    CLCnGLS0 = 0x02;    // D-FF CLK <- D1T
-    CLCnGLS1 = 0x04;    // D-FF D   <- D2N <- /CLC2OUT (inverted)
-    CLCnGLS2 = 0x20;    // 0 for D-FF RESET
-    CLCnGLS3 = 0x20;    // 0 for D-FF SET
-    
-    CLCnPOL = 0x00;     // non inverted the CLC3 output
-    CLCnCON = 0x84;     // Select D-FF (no interrupt)
-
-#if 0
-    // ============== CLC3 /WAIT
-    CLCSELECT = 2;      // CLC3 select
-    CLCnCON &= ~0x80;
-    
-    CLCnSEL0 = 1;       // D-FF CLK <- CLCIN1PPS <- /IORQ
-    CLCnSEL1 = 127;     // D-FF D NC
-    CLCnSEL2 = 127;     // D-FF SET NC
-    CLCnSEL3 = 127;     // D-FF RESET NC
-    
-    CLCnGLS0 = 0x01;    // /IORQ ~|_  (inverted)
-    CLCnGLS1 = 0x40;    // D-FF D NC (1 for D-FF D)
-    CLCnGLS2 = 0x80;    // D-FF SET (soft reset)
-    CLCnGLS3 = 0x00;    // 0 for D-FF RESET
-
-    // reset D-FF
-    CLCnGLS2 = 0x40;    // 1 for D-FF RESET
-    CLCnGLS2 = 0x80;    // 0 for D-FF RESET
-
-    CLCnPOL = 0x80;     // non inverted the CLC3 output
-    CLCnCON = 0x84;     // Select D-FF (no interrupt)
-        
-    // Here, we have CLC's be intialized.
-    // Now we change GPIO pins to be switched
-    // 1, 2, 5, 6: Port A, C
-    // 3, 4, 7, 8: Port B, D
-    RD6PPS = 0x03;      // CLC3 -> RD6 -> /WAIT
-#endif
-
     
     init_boot();
     manualboot();
@@ -480,8 +466,14 @@ void main(void) {
     xprintf("->\n");
 
     // Clock output connect
-    RA3PPS = 0x01;      // RA3 <- CLC2OUT
+#if defined(MC6809E)
+    RA3PPS = 0;         // RA3 <- default GPIO
     
+#else
+    RA3PPS = 0x01;      // RA3 <- CLC2OUT
+#endif
+    
+
     // RESET again
     LATE1 = 0;
     LATE0 = 0;  // /BUSRQ deassert

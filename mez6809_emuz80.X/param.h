@@ -12,6 +12,8 @@
 extern "C" {
 #endif
 
+// CPU type 6809 or 6809E
+#define CPUTYPE MC6809E
 
 // user defined types    
 typedef unsigned short addr_t;
