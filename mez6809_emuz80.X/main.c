@@ -249,12 +249,12 @@ void main(void) {
     CLCnPOL = 0;        // not inverted output/g1g2g3g4
     
     CLCnSEL0 = 0x34;    // g1 <- CLC2
-    CLCnSEL1 = 127;// 0x02;    // g2 <- CLCIN1 <- RA1(E)
+    CLCnSEL1 = 0x01;    // g2 <- CLCIN1 <- RA1(E)
     CLCnSEL2 = 0x2a;    // g3 <- NCO1
     CLCnSEL3 = 127;     // g4 <- no connect
     
     CLCnGLS0 = 0x20;    // D-FF CLK <- D3T
-    CLCnGLS1 = 0x01;    // D1N (temporary) 0x05;    // D-FF D   <- D1N && D2N
+    CLCnGLS1 = 0x09;    // D1N (temporary) 0x05;    // D-FF D   <- D1N && D2N
     CLCnGLS2 = 0x80;    // 0 for D-FF RESET
     CLCnGLS3 = 0x80;    // 0 for D-FF SET
 
@@ -286,7 +286,7 @@ void main(void) {
     
     CLCnSEL0 = 0x36;    // g1 <- CLC4
     CLCnSEL1 = 127;     // 0x02;    // g2 <- CLCIN1 <- RA1(E)
-    CLCnSEL2 = 0x2a;    // g3 <- CLC2
+    CLCnSEL2 = 0x34;    // g3 <- CLC2
     CLCnSEL3 = 127;     // g4 <- no connect
     
     CLCnGLS0 = 0x20;    // D-FF CLK <- D3T
@@ -303,7 +303,7 @@ void main(void) {
     
     CLCnSEL0 = 0x37;    // g1 <- CLC5
     CLCnSEL1 = 127;     // NC (or gating input) 
-    CLCnSEL2 = 0x2a;    // g3 <- CLC2
+    CLCnSEL2 = 0x34;    // g3 <- CLC2
     CLCnSEL3 = 127;     // NC 
     
     CLCnGLS0 = 0x20;    // D-FF CLK <- D3T
@@ -333,7 +333,7 @@ void main(void) {
 
     // Z80 clock(RA3) by NCO FDC mode
     NCO1INC = MEZ6809_CLK * 2 / 61;
-    NCO1INC = 0x04000;
+    NCO1INC = 0x10000;
     NCO1CLK = 0x00; // Clock source Fosc
     NCO1PFM = 0;  // FDC mode
     NCO1OUT = 1;  // NCO output enable
@@ -348,7 +348,25 @@ void main(void) {
     RA2PPS = 0x06;  // 0x06: CLC6OUT
     RA5PPS = 0x02;  // 02: CLC2OUT // 0x3f:NCO1
 
-    while(1);
+    TOGGLE;TOGGLE;
+    // sample loop for clock stretch
+    while(1) {
+        while(!RA1);    // wait for E upper edge
+        TOGGLE;
+        for (int i = 0; i < 3; ++i) {
+            nop;    // dummy time eater
+        }
+        //
+        CLCSELECT = 1;  // select CLC2
+        CLCnGLS1 ^= 0x0c;   // toggle D2T,D2N
+        TOGGLE;
+        while(RA1);     // wait for E down edge
+        TOGGLE;
+        db_setin();
+        CLCSELECT = 1;  // select CLC2
+        CLCnGLS1 ^= 0x0c;   // toggle D2T,D2N
+        TOGGLE;
+    }
 #else //!MC6809E
     ANSELA3 = 0;
     LATA3 = 0;
